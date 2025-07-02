@@ -47,18 +47,22 @@ const Index = () => {
     }
   ]);
 
+  const handleTasksUpdate = (newTasks: Task[]) => {
+    setTasks(newTasks);
+  };
+
   const renderActiveView = () => {
     switch (activeView) {
       case 'dashboard':
-        return <Dashboard tasks={tasks} setTasks={setTasks} />;
+        return <Dashboard tasks={tasks} setTasks={handleTasksUpdate} />;
       case 'tasks':
-        return <TaskList tasks={tasks} setTasks={setTasks} />;
+        return <TaskList tasks={tasks} setTasks={handleTasksUpdate} />;
       case 'calendar':
         return <CalendarView tasks={tasks} />;
       case 'chat':
-        return <AIChat tasks={tasks} setTasks={setTasks} />;
+        return <AIChat tasks={tasks} setTasks={handleTasksUpdate} />;
       default:
-        return <Dashboard tasks={tasks} setTasks={setTasks} />;
+        return <Dashboard tasks={tasks} setTasks={handleTasksUpdate} />;
     }
   };
 
@@ -80,14 +84,14 @@ const Index = () => {
             {/* AI Chat Sidebar */}
             <div className="lg:w-80 flex-shrink-0">
               <div className="sticky top-6">
-                <AIChat tasks={tasks} setTasks={setTasks} />
+                <AIChat tasks={tasks} setTasks={handleTasksUpdate} />
               </div>
             </div>
           </div>
         </div>
         
         {/* Fixed Components */}
-        <VoiceCommands tasks={tasks} setTasks={setTasks} />
+        <VoiceCommands tasks={tasks} setTasks={handleTasksUpdate} />
         <NotificationSystem tasks={tasks} />
       </div>
     </AuthProvider>
